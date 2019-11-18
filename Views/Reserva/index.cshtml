@@ -1,0 +1,38 @@
+@model List<Reserva>
+<div class="container">
+        
+<h1>Lista de Reservas</h1>
+<table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Numero de Mesa</th>
+            <th scope="col">Fecha y Hora</th>
+            <th scope="col">DNI</th>
+            <th scope="col">Cantidad de Personas</th> 
+          </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+{
+        <tr>
+            <th scope="row">@item.Id</th>
+            <td>@item.NumerodeMesa</td>
+            <td>@item.FechayHora</td>
+            <td>@item.DNI</td>
+            <td>@item.CantidadPersonas</td>
+          </tr>
+
+}
+
+        
+          
+          
+          
+        </tbody>
+      </table>
+
+@if (Model.Count == 0) {
+    <p>No hay Reservas registradas</p>
+}
+</div>

@@ -1,0 +1,112 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Rest_Bar_El_Drag_n_</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
+              crossorigin="anonymous"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"/>
+    </environment>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>            
+        <nav class="barra">
+            <img class="img1" src="https://scontent.flim1-1.fna.fbcdn.net/v/t31.0-8/p960x960/17917249_440078649670828_2953024631432677971_o.png?_nc_cat=100&_nc_oc=AQnoFT0vNtMIJDpjUeuYoWi_iRvh6YLn8sIBnmWKGW2tSLmVLb_4hJ4hqsx-U0OkNUE&_nc_ht=scontent.flim1-1.fna&oh=664b8f8407d7d9d59dc8eef287f056cd&oe=5E4F0110" alt="">
+            <ul class="bar1">
+                <li class="li1">
+                    <a asp-controller="Home" asp-action="Index">Inicio</a>
+                </li>
+                <li class="li1">
+                        <a asp-controller="Home" asp-action="Nosotros">Nosotros</a>
+                    </li>
+                    <li class="li1">
+                            <a asp-controller="Menu" asp-action="Index">Menu</a>
+                    </li>
+                     @if (!User.Identity.IsAuthenticated) {
+                    <li class="li1">
+                        <a asp-controller="Cuenta" asp-action="Crear"> Crear cuenta</a>
+                    </li>
+                     <li class="li1">
+                        <a asp-controller="Cuenta" asp-action="Login"> Iniciar sesión</a>
+                    </li>
+                     }else{
+
+                    <li class="li1">
+                        <a asp-controller="Reserva" asp-action="Registro"> Registrar Reserva</a>
+                    </li>
+                    
+                    
+
+                     <li class="li1">
+                        <a asp-controller="Cuenta" asp-action="Logout"> Cerrar sesión</a>
+                    </li>
+                    }
+                    
+                    
+
+
+                        
+
+            </ul>
+            @if (User.Identity.IsAuthenticated) {  
+             var usuario= UserManager.FindByNameAsync(User.Identity.Name).Result;
+                    @if(UserManager.IsInRoleAsync(usuario,"Administrador").Result){
+                        
+            <div class="dropdown">
+                            <button class="dropbtn">Opciones de Administrador</button>
+                                <div class="dropdown-content">
+                                    <a asp-controller="Menu" asp-action="Registro"> Registrar Plato</a>
+                                    <a asp-controller="Categorias" asp-action="Registro"> Registrar Categoria</a>
+                                    <a asp-controller="Compra" asp-action="Index"> Ver Compras</a>
+                                    <a asp-controller="Reserva" asp-action="Index"> Ver Reservas</a>
+                                    <a  href="~/cuenta/crearrol">Crear Rol</a>
+                                    <a  href="~/cuenta/asociarrol">Asociar Rol</a>
+                                </div>
+                        </div>  
+                    } 
+                     }
+        </nav>
+    </header>
+    @RenderBody()
+
+    <footer class="footer">
+        <div class="container">
+            reservas@eldragon.com Camino Real 101
+        </div>
+    </footer>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
+        </script>
+    </environment>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,28 @@
+@model IndexViewModel
+
+@if (Model.Menus.Count == 0) {
+    <p>No hay Platillos disponibles</p>
+}
+
+<div class="row">
+
+    @foreach (var item in Model.Menus)
+    {
+        <div class="col-md-4 text-center my-3">
+            <h2>@item.Nombre</h2>
+        
+            
+            <img src="@item.Foto" >
+            <p>@item.Descripcion</p>
+            <p>@item.Precio</p>
+    
+            
+            <div>
+                <a asp-action="Comprar" asp-route-codigo="@item.Id" class="btn btn-danger btn-lg">Comprar</a>
+            </div>
+        </div>
+    }
+        
+    
+    </div>
+    

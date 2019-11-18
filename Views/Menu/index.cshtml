@@ -1,0 +1,40 @@
+@model List<Categoria>
+<div class="containerM">
+             
+
+
+@if (Model.Count == 0) {
+    <p>No hay menus registrados</p>
+}
+<div class="cont">
+    
+@foreach (var item in Model)
+{
+    <div class="containerP">
+        <h1>@item.Nombre</h1>
+    </div> 
+    @foreach(var menu in  item.Menus)
+    {
+        <div class="menP">
+            <img  width="250px" height="175px" src="@menu.Foto" alt="">
+            <h4>@menu.Nombre</h4>
+            <div class="orange"></div>
+            <h5>@menu.Descripcion</h5>
+            <h5>s/. @menu.Precio </h5>
+            <form asp-controller="Compra" asp-action="Registro" method="post">
+            <input type="hidden" name="Nombre" value="@menu.Nombre">
+            <input type="hidden" name="Foto" value="@menu.Foto">
+            <input type="hidden" name="Descripcion" value="@menu.Descripcion">
+            <input type="hidden" name="Precio" value="@menu.Precio">
+            @if (User.Identity.IsAuthenticated) {
+                 <button type="submit" class="myButton">Ordenar</button>
+                
+            }
+            </form>
+            </div>
+            
+        }
+
+}
+</div>
+</div>
